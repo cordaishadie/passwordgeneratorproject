@@ -52,12 +52,14 @@ public class PasswordGenerator
         // Print the password to the console
         System.out.println(user.getFirstName() + ", " + "your password is: " + password);
 
-        // Use the AES class to encrypt the password
-        String encrypted = AES.encrypt(password, "asecretkey") ;
+        // Use the encryptPassword method to encrypt the password and print it
+        String encrypted = user.encryptPassword();
+        // set the encrypted password
+        user.setEncryptedPassword(encrypted);
         // Print the encrypted password to the console
         System.out.println(user.getFirstName() + ", " + "your encrypted password is: " + encrypted);
         // Then, you can use AES.decrypt to decrypt the encrypted password:
-        String decrypted = AES.decrypt(encrypted, "asecrtetkey");
+        String decrypted = AES.decrypt(encrypted, "asecretkey");
         // Print the decrypted password to the console
         System.out.println(user.getFirstName() + ", " + "your decrypted password is: " + decrypted);
         System.out.println("");
@@ -94,12 +96,14 @@ public class PasswordGenerator
         user2.setPassword(password2);
         System.out.println(user2.getFirstName() + ", " + "your password is: " + password2);
   
-        // Use the AES class to encrypt the password
-        String encrypted2 = AES.encrypt(password2, "asecretkey") ;
+        // Use the encryptPassword method to encrypt the password and print it
+        String encrypted2 = user2.encryptPassword();
+        // set the encrypted password
+        user2.setEncryptedPassword(encrypted2);
         // Print the encrypted password to the console
         System.out.println(user2.getFirstName() + ", " + "your encrypted password is: " + encrypted2);
         // Then, you can use AES.decrypt to decrypt the encrypted password:
-        String decrypted2 = AES.decrypt(encrypted2, "asecrtetkey");
+        String decrypted2 = AES.decrypt(encrypted2, "asecretkey");
         // Print the decrypted password to the console
         System.out.println(user2.getFirstName() + ", " + "your decrypted password is: " + decrypted2);
 

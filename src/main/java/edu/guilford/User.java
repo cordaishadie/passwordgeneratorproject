@@ -11,6 +11,7 @@ public class User {
     private String favoriteColor;
     private String firstPet;
     private int birthYear;
+    private String encryptedPassword;
 
 
 
@@ -19,12 +20,36 @@ public class User {
     }
 
     public User(String firstName, String lastName, String email, String username, String password, String favoriteColor, 
-    String firstPet, int birthYear) {
+    String firstPet, int birthYear, String encryptedPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.favoriteColor = favoriteColor;
+        this.firstPet = firstPet;
+        this.birthYear = birthYear;
+    }
+
+    // constructor that takes a first name, last name, and email address
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    // constructor that takes username and password
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    // constuctor that takes everything but the password and encrypted password
+    public User(String firstName, String lastName, String email, String username, String favoriteColor, String firstPet, int birthYear) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
         this.favoriteColor = favoriteColor;
         this.firstPet = firstPet;
         this.birthYear = birthYear;
@@ -95,11 +120,19 @@ public class User {
         this.birthYear = birthYear;
     }
 
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
 
     // methods
     public String toString() {
         return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", username=" + username
-                + ", password=" + password + "favoriteColor=" + favoriteColor + "]";
+                + ", password=" + password + "favoriteColor=" + favoriteColor + "encryptedPassword=" + encryptedPassword + "]";
     }
 
     // method that generates a unique password based on the user's information 
@@ -124,5 +157,11 @@ public class User {
         return password;
     }
 
+    // method that encrypts the password using the methods of the AES class and 
+    // stores an encrypted version whenever the password is generated 
+    public String encryptPassword() {
+        encryptedPassword = AES.encrypt(password, "asecretkey");
+        return encryptedPassword;
     }
+}
 

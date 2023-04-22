@@ -18,19 +18,20 @@ public class AES {
     private static SecretKeySpec secretKey;
     private static byte[] key;
 
-    // Set the key
+    // This block of code is used to set the key
+    // The key is used to encrypt and decrypt the password
     public static void setKey(String myKey) {
+        // For security, we use a SHA-1 digest
         MessageDigest sha = null;
         try {
-            // Convert the key to a byte array
+            // We first convert the key to a byte array
             key = myKey.getBytes("UTF-8");
-            // Create a SHA-1 digest
+            // we create a SHA-1 digest
             sha = MessageDigest.getInstance("SHA-1");
-            // Update the digest with the key
+            // and use the digest to create a 128-bit key
             key = sha.digest(key);
-            // Truncate the key to 128 bits
             key = Arrays.copyOf(key, 16);
-            // Create a new SecretKeySpec
+            // we create a new SecretKeySpect object
             secretKey = new SecretKeySpec(key, "AES");
             // Print the key
         } catch (NoSuchAlgorithmException e) {
@@ -40,39 +41,36 @@ public class AES {
         }
     }
 
-    // Encrypt and decrypt methods
+    // this method is used to encrypt the password
     public static String encrypt(String strToEncrypt, String secret) {
         try {
-            // Set the key
+            // We first set the key to the secret key
             setKey(secret);
-            // Create a new cipher
+            // Then we create a new cipher and initialize it
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            // Initialize the cipher
+            // We use the cipher to encrypt the string
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            // Encrypt the string
-            // Return the encrypted string
+            // the returen the encrypted string
             return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
         } catch (Exception e) {
-            // Print the error
+            // we print out the error if there is one
             System.out.println("Error while encrypting: " + e.toString());
         }
         return null;
     }
 
-    // Decrypt method
+    // this method is used to decrypt the password
     public static String decrypt(String strToDecrypt, String secret) {
         // Try to decrypt the string
         try {
-            // Set the key
+            // we set the key
             setKey(secret);
-            // Create a new cipher
+            // create a new cipher and initialize it
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-            // Initialize the cipher
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            // Decrypt the string
-            // Return the decrypted string
+            // we decrypt the string and return it
             return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
-            // Print the error
+            // and we print out the error if there is one
         } catch (Exception e) {
             System.out.println("Error while decrypting: " + e.toString());
         }
