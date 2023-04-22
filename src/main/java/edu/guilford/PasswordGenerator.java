@@ -65,7 +65,7 @@ public class PasswordGenerator
         System.out.println("");
 
 
-        // Instiate another user object using the scanner
+        // Instantiate another user object using the scanner
         User user2 = new User();
         
         System.out.println("Enter your first name: ");
